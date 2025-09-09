@@ -1,20 +1,11 @@
-import { RequestHandler, Response } from "express";
+import { RequestHandler } from "express";
 import {
-  UserSettingsInput,
+  AuthenticatedRequest,
   UserSettingsOutput,
 } from "./userSettings.types";
-import { Request } from "express";
 import { isValidSettings } from "./userSettings.utils";
 
 const userSettingsStore = new Map<string, UserSettingsOutput>();
-
-type AuthenticatedRequest = Request<{}, {}, UserSettingsInput> & {
-  user: {
-    id: string;
-    role?: string;
-    email?: string;
-  };
-}
 
 export const getUserSettings: RequestHandler = (req, res) => {
   const { user } = req as AuthenticatedRequest;

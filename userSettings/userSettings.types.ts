@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export type SupportedLanguage = "cs" | "en" | "de";
 
 export interface UserSettingsInput {
@@ -7,3 +9,11 @@ export interface UserSettingsInput {
 }
 
 export interface UserSettingsOutput extends UserSettingsInput {}
+
+export type AuthenticatedRequest = Request<{}, {}, UserSettingsInput> & {
+  user: {
+    id: string;
+    role?: string;
+    email?: string;
+  };
+}
